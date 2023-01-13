@@ -1,0 +1,35 @@
+$max_width: 640px;
+$border_style: 12px;
+$breakpoint_mobile: 400px;
+$mobile: 640px;
+$tablet: 1023px;
+$desktop: 1024px;
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  -webkit-line-clamp: 1;
+}
+
+/*반응형, 브라우저 크기가 640px 이하일때*/
+@mixin mobile{
+  @media (max-width: #{$mobile}){
+    @content;
+  }
+}
+
+/*반응형, 브라우저 크기가 641이상, 1023px 이하일때*/
+@mixin tablet{
+  @media (min-width: #{$mobile + 1px}) and (max-width: #{$tablet}){
+    @content;
+  }
+}
+
+/*반응형, 브라우저 크기가 1024px 이상일때*/
+@mixin desktop{
+  @media (min-width: #{$desktop}){
+    @content;
+  }
+}

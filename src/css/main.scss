@@ -1,42 +1,36 @@
-$max_width: 360px;
-$font_family: 'Zen Dots', cursive;
-$border_style: 12px;
-$height_post: 76px;
-
+@import "utils";
 
 * {
   margin: 0px;
   padding: 0px;
-  font: {
-    family: $font_family;
-  }
+  text-decoration: none;
 }
 
 .title {
   display: none;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-}
 
 #layout {
-  text-align: center;
   color: blue;
-  width: $max_width;
+  max-width: $max_width;
+  min-width: $breakpoint_mobile;
   border: 1px solid black;
+  border-radius: $border_style;
 }
 
 .header {
+  background-color: grey;
   height: 83px;
+  line-height: 83px;
   border-bottom: 1px solid red;
-  background-color: aquamarine;
-
+  text-align: center;
+  padding: 10px;
 }
 
-.main {
-  background-color: darkgreen;
+.createPost {
+  text-align: center;
+  background-color: burlywood;
 }
 
 .newPost {
@@ -46,28 +40,84 @@ body {
   line-height: 80px;
 }
 
-.post {
-  background-color: yellow;
-  border-radius: $border_style;
-  margin: 24px 16px;
-  border: 1px solid black;
-  height: $height_post;
-  display: flex;
-  justify-content: space-between;
+.postList {
+  background-color: palevioletred;
 }
 
-span {
-  padding: 20px 0 30px;
+.post {
+  list-style: none;
+  padding: 10px;
+  background-color: white;
+  border-radius: $border_style;
+  border: 1px solid black;
+  display: flex;
+  margin: 0px 20px 5%;
+  box-shadow: 1px 3px 15px rgb(0 0 0 / 15%);
+  height: 90px;
+}
+
+.innerPost {
+  display: flex;
+  gap: 20px;
+}
+
+article {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 15px;
+  padding-top: 10px;
+}
+
+strong {
+  width: 200px;
+  @include ellipsis;
+}
+
+p {
+  width: 350px;
+  @include ellipsis;
 }
 
 .pencil {
   width: 24px;
   margin-right: 10px;
-
 }
 
 .randomImg {
   width: 76px;
   height: 76px;
   border-radius: $border_style;
+  object-fit: cover;
+}
+
+@include mobile {
+  body {
+    margin: 0 auto;
+  }
+  #layout {
+    width: 90%;
+    margin: auto;
+  }
+  h2 {
+    width: 100%;
+  }
+  strong{
+    width: 140px;
+  }
+  p {
+    width: 250px;
+  }
+}
+
+@include tablet {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
+@include desktop {
+  body {
+    display: flex;
+    justify-content: center;
+  }
 }
