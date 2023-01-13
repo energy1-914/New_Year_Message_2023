@@ -1,0 +1,31 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout {
+  text-align: center;
+  color: blue;
+  width: 360px;
+  height: 750px;
+  border: 1px solid black;
+}
+
+.header {
+  width: 360px;
+  height: 83px;
+  border-bottom: 1px solid red;
+  background-color: aquamarine;
+
+}
+
+.post {
+  background-color: greenyellow;
+  margin: 24px 16px;
+  border-color: rgb(17, 17, 53);
+  border-width: 1px 0px;
+}
+
+/*# sourceMappingURL=/main.d59c9882.css.map */
