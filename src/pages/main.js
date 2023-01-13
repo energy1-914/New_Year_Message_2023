@@ -6,25 +6,30 @@ let template = `
       <div class="header">
         <h2>what's your 2023 message ?</h2>
       </div>
-      <div class="main">
+      <div class="createPost">
         <a class="newPost" href="">
           <img class="pencil" src="https://cdn-icons-png.flaticon.com/512/650/650143.png">
-          new post
+        new post
         </a>
-        <div class="postList">
-          {{__post_list__}}
-        </div>
       </div>
+      <ul class="postList">
+          {{__post_list__}}
+      </ul>
 `;
 
 class View {
   static render(length, posts) {
     for (let i = 0; i < length; i++) {
       postList.push(`
-      <a class ="post" href="">
-      <img class="randomImg" src="https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg">
-      <span>${posts[i].title}</span>
-      </a>
+      <li class = "post">
+        <a class = "innerPost" href="">
+          <img class="randomImg" src="https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg">
+          <article>
+            <strong>${posts[i].title}</strong>
+            <p>${posts[i].content}</p>
+          </article>
+        </a>
+      </li>
       `);
     }
     template = template.replace("{{__post_list__}}", postList.join(""));
@@ -52,4 +57,3 @@ get("posts")
     console.log("성공", data);
   })
   .catch(error => console.log("에러", error));
-
