@@ -1,33 +1,37 @@
+@charset "UTF-8";
+/*반응형, 브라우저 크기가 640px 이하일때*/
+/*반응형, 브라우저 크기가 641이상, 1023px 이하일때*/
+/*반응형, 브라우저 크기가 1024px 이상일때*/
 * {
   margin: 0px;
   padding: 0px;
-  font-family: "Zen Dots", cursive;
+  text-decoration: none;
 }
 
 .title {
   display: none;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-}
-
 #layout {
-  text-align: center;
   color: blue;
-  width: 360px;
+  max-width: 640px;
+  min-width: 400px;
   border: 1px solid black;
+  border-radius: 12px;
 }
 
 .header {
+  background-color: grey;
   height: 83px;
+  line-height: 83px;
   border-bottom: 1px solid red;
-  background-color: aquamarine;
+  text-align: center;
+  padding: 10px;
 }
 
-.main {
-  background-color: darkgreen;
+.createPost {
+  text-align: center;
+  background-color: burlywood;
 }
 
 .newPost {
@@ -37,18 +41,50 @@ body {
   line-height: 80px;
 }
 
-.post {
-  background-color: yellow;
-  border-radius: 12px;
-  margin: 24px 16px;
-  border: 1px solid black;
-  height: 76px;
-  display: flex;
-  justify-content: space-between;
+.postList {
+  background-color: palevioletred;
 }
 
-span {
-  padding: 20px 0 30px;
+.post {
+  list-style: none;
+  padding: 10px;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid black;
+  display: flex;
+  margin: 0px 20px 5%;
+  box-shadow: 1px 3px 15px rgba(0, 0, 0, 0.15);
+  height: 90px;
+}
+
+.innerPost {
+  display: flex;
+  gap: 20px;
+}
+
+article {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 15px;
+  padding-top: 10px;
+}
+
+strong {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  -webkit-line-clamp: 1;
+}
+
+p {
+  width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  -webkit-line-clamp: 1;
 }
 
 .pencil {
@@ -60,6 +96,38 @@ span {
   width: 76px;
   height: 76px;
   border-radius: 12px;
+  object-fit: cover;
+}
+
+@media (max-width: 640px) {
+  body {
+    margin: 0 auto;
+  }
+  #layout {
+    width: 90%;
+    margin: auto;
+  }
+  h2 {
+    width: 100%;
+  }
+  strong {
+    width: 140px;
+  }
+  p {
+    width: 250px;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /*# sourceMappingURL=/main.0d3aeac4.css.map */

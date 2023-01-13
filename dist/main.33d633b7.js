@@ -174,7 +174,7 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var layout = document.getElementById("layout");
 var postList = [];
-var template = "\n      <div class=\"header\">\n        <h2>what's your 2023 message ?</h2>\n      </div>\n      <div class=\"main\">\n        <a class=\"newPost\" href=\"\">\n          <img class=\"pencil\" src=\"https://cdn-icons-png.flaticon.com/512/650/650143.png\">\n          new post\n        </a>\n        <div class=\"postList\">\n          {{__post_list__}}\n        </div>\n      </div>\n";
+var template = "\n      <div class=\"header\">\n        <h2>what's your 2023 message ?</h2>\n      </div>\n      <div class=\"createPost\">\n        <a class=\"newPost\" href=\"\">\n          <img class=\"pencil\" src=\"https://cdn-icons-png.flaticon.com/512/650/650143.png\">\n        new post\n        </a>\n      </div>\n      <ul class=\"postList\">\n          {{__post_list__}}\n      </ul>\n";
 var View = /*#__PURE__*/function () {
   function View() {
     _classCallCheck(this, View);
@@ -183,7 +183,7 @@ var View = /*#__PURE__*/function () {
     key: "render",
     value: function render(length, posts) {
       for (var i = 0; i < length; i++) {
-        postList.push("\n      <a class =\"post\" href=\"\">\n      <img class=\"randomImg\" src=\"https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg\">\n      <span>".concat(posts[i].title, "</span>\n      </a>\n      "));
+        postList.push("\n      <li class = \"post\">\n        <a class = \"innerPost\" href=\"\">\n          <img class=\"randomImg\" src=\"https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg\">\n          <article>\n            <strong>".concat(posts[i].title, "</strong>\n            <p>").concat(posts[i].content, "</p>\n          </article>\n        </a>\n      </li>\n      "));
       }
       template = template.replace("{{__post_list__}}", postList.join(""));
       layout.innerHTML = template;
@@ -260,7 +260,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63092" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58584" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
