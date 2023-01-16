@@ -1,0 +1,82 @@
+@import "utils";
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+#layout {
+  max-width: $max_width;
+  min-width: $breakpoint_mobile;
+  height: 750px;
+  border: 1px solid darkblue;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  align-items: center;
+  height: 83px;
+}
+
+.arrowIcon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 5%;
+}
+
+.post{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.title {
+  width: 100%;
+  height: 30px;
+  font-size: medium;
+  border: none;
+  border-bottom: 1px solid lightgray;
+}
+
+.content {
+  width: 100%;
+  height: 225px;
+  font-size: large;
+  border: none;
+  resize: none;
+}
+
+button {
+  background-color: rgb(202, 89, 89);
+  border-radius: $border_style;
+  cursor: pointer;
+  height: 60px;
+}
+
+@include mobile {
+  body {
+    margin: 0 auto;
+  }
+}
+
+@include tablet {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
+@include desktop {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
