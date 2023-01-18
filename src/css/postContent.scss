@@ -1,0 +1,86 @@
+@import "utils";
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+#layout {
+  max-width: $max_width;
+  min-width: $breakpoint_mobile;
+  height: 750px;
+  border: 1px solid darkblue;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  height: 83px;
+  background-color: khaki;
+}
+
+.arrowIcon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+main {
+  background-color: aquamarine;
+}
+
+article {
+  background-color: mediumslateblue;
+}
+
+.postImg {
+  width: 100%;
+  height: 265px;
+  object-fit: cover;
+}
+
+.content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#clock {
+  font-size: 12px;
+  margin-left: auto;
+}
+
+#text {
+min-height: 70px ;
+}
+
+.icons {
+  margin-left: auto;
+}
+
+.icon {
+  width: 20px;
+  padding: 0 0 0 5px;
+}
+
+@include mobile {
+  body {
+    margin: 0 auto;
+  }
+}
+
+@include tablet {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
+@include desktop {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
