@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/*반응형, 브라우저 크기가 640px 이하일때*/
+/*반응형, 브라우저 크기가 641이상, 1023px 이하일때*/
+/*반응형, 브라우저 크기가 1024px 이상일때*/
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+#layout {
+  max-width: 640px;
+  min-width: 400px;
+  height: 750px;
+  border: 1px solid darkblue;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  align-items: center;
+  height: 83px;
+}
+
+.arrowIcon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 5%;
+}
+
+form {
+  display: contents;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inputTitle {
+  width: 100%;
+  height: 30px;
+  font-size: medium;
+  border: none;
+  border-bottom: 1px solid lightgray;
+}
+
+.content {
+  width: 100%;
+  height: 225px;
+  font-size: large;
+  border: none;
+  resize: none;
+}
+
+button {
+  background-color: rgb(202, 89, 89);
+  border-radius: 12px;
+  cursor: pointer;
+  height: 60px;
+}
+
+@media (max-width: 640px) {
+  body {
+    margin: 0 auto;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/*# sourceMappingURL=/newPost.fb4e8854.css.map */
