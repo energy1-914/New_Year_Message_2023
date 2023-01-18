@@ -141,7 +141,7 @@ var MainView = /*#__PURE__*/function () {
     key: "render",
     value: function render(length, posts) {
       for (var i = 0; i < length; i++) {
-        postList.push("\n      <li class = \"post\">\n        <a class = \"innerPost\" href=\"#/postlist/".concat(posts[i].title, "\">\n          <img class=\"randomImg\" src=\"https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg\">\n          <article>\n            <strong>").concat(posts[i].title, "</strong>\n            <p>").concat(posts[i].content, "</p>\n          </article>\n        </a>\n      </li>\n      "));
+        postList.push("\n      <li class = \"post\">\n        <a class = \"innerPost\" href=\"#/postlist/".concat(posts[i].title, "/").concat(i, "\">\n          <img class=\"randomImg\" src=\"https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg\">\n          <article>\n            <strong>").concat(posts[i].title, "</strong>\n            <p>").concat(posts[i].content, "</p>\n          </article>\n        </a>\n      </li>\n      "));
       }
       template = template.replace("{{__post_list__}}", postList.join(""));
       layout.innerHTML = template;
@@ -295,7 +295,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var layout = document.getElementById("layout");
-var template = "\n<div class=\"header\">\n        <a href=\"#\">\n          <img\n            class=\"arrowIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n          />\n        </a>\n        <h2>HPNY 2023</h2>\n      </div>\n      <main class=\"main\">\n      <form>\n        <button name=\"image\" class=\"newImg\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n        <div class=\"post\">\n          <h3>Title</h3>\n          <input\n            name=\"title\"\n            class=\"inputTitle\"\n            type=\"text\"\n            placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n          />\n        </div>\n        <div class=\"post\">\n          <h3>Content</h3>\n          <textarea\n            name= \"content\"\n            class=\"content\"\n            type=\"text\"\n            placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n          ></textarea>\n        </div>\n        <button class=\"upload\" type=\"submit\" href=\"\">\uAC8C\uC2DC\uD558\uAE30</button>\n      </form>  \n      </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main class=\"main\">\n    <form>\n      <button name=\"image\" class=\"newImg\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n      <div class=\"post\">\n        <h3>Title</h3>\n        <input\n          name=\"title\"\n          class=\"inputTitle\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        />\n      </div>\n      <div class=\"post\">\n        <h3>Content</h3>\n        <textarea\n          name= \"content\"\n          class=\"content\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        ></textarea>\n      </div>\n      <button class=\"upload\" type=\"submit\" href=\"\">\uAC8C\uC2DC\uD558\uAE30</button>\n    </form>  \n  </main>\n";
 var NewPostView = /*#__PURE__*/function () {
   function NewPostView() {
     _classCallCheck(this, NewPostView);
@@ -338,7 +338,45 @@ var NewPostView = /*#__PURE__*/function () {
   return NewPostView;
 }();
 exports.NewPostView = NewPostView;
-},{"../cores/api":"src/cores/api.js"}],"src/cores/router.js":[function(require,module,exports) {
+},{"../cores/api":"src/cores/api.js"}],"src/pages/postContent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PostContentView = void 0;
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var layout = document.getElementById("layout");
+var imageInformation = [];
+var postInformation = [];
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"content\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n    </article>\n    <section>\uB313\uAE00\uC790\uB9AC</section>\n  </main>\n";
+var PostContentView = /*#__PURE__*/function () {
+  function PostContentView() {
+    _classCallCheck(this, PostContentView);
+  }
+  _createClass(PostContentView, null, [{
+    key: "render",
+    value: function render(title, content, image, date) {
+      layout.innerHTML = template;
+      document.title = "".concat(title);
+      postInformation.push("\n      <span id=\"clock\">".concat(date, "</span>\n      <h2 id = \"title\">").concat(title, "</h2>\n      <p id = \"text\">").concat(content, "</p>\n    "));
+      imageInformation.push("\n      <image\n      class=\"postImg\"\n      src=\"".concat(image, "\"\n      />"));
+      template = template.replace("{{__post_information__}}", postInformation.join(""));
+      template = template.replace("{{__post_image__}}", imageInformation.join(""));
+      layout.innerHTML = template;
+      location.href = location.href;
+      // location.reload();
+    }
+  }]);
+  return PostContentView;
+}();
+exports.PostContentView = PostContentView;
+},{}],"src/cores/router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -347,6 +385,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.Router = void 0;
 var _main = require("../pages/main");
 var _newPost = require("../pages/newPost");
+var _postContent = require("../pages/postContent");
 var _api = require("./api");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -360,12 +399,7 @@ var Router = /*#__PURE__*/function () {
   }
   _createClass(Router, null, [{
     key: "route",
-    value:
-    // constructor() {
-    //   window.addEventListener("hashchange", this.route.bind(this));
-    // }
-
-    function route() {
+    value: function route() {
       var routePath = location.hash;
       if (routePath === "") {
         _api.Api.get().then(function (data) {
@@ -377,8 +411,15 @@ var Router = /*#__PURE__*/function () {
           return console.log("에러", error);
         });
       } else if (routePath.includes("#/postlist/")) {
-        // 해당 포스트내용 여는 함수 구현
-        console.log("미구현");
+        var i = routePath.split("/")[3];
+        _api.Api.get().then(function (data) {
+          var title = data.data.posts[i].title;
+          var content = data.data.posts[i].content;
+          var image = data.data.posts[i].image;
+          var date = data.data.posts[i].updatedAt.slice(0, 10).replaceAll('-', '.');
+          _postContent.PostContentView.render(title, content, image, date);
+          console.log("성공", data);
+        });
       } else if (routePath.includes("#/newpost")) {
         _newPost.NewPostView.render();
       }
@@ -387,7 +428,7 @@ var Router = /*#__PURE__*/function () {
   return Router;
 }();
 exports.Router = Router;
-},{"../pages/main":"src/pages/main.js","../pages/newPost":"src/pages/newPost.js","./api":"src/cores/api.js"}],"src/app.js":[function(require,module,exports) {
+},{"../pages/main":"src/pages/main.js","../pages/newPost":"src/pages/newPost.js","../pages/postContent":"src/pages/postContent.js","./api":"src/cores/api.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _router = require("./cores/router");
@@ -418,7 +459,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65368" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57861" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
