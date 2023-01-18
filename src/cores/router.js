@@ -24,8 +24,9 @@ export class Router {
         let content = data.data.posts[i].content;
         let image = data.data.posts[i].image;
         let date = data.data.posts[i].updatedAt.slice(0, 10).replaceAll('-', '.');
+        let postId = data.data.posts[i].postId;
         
-        PostContentView.render(title, content, image, date);
+        PostContentView.render(title, content, image, date, postId);
         console.log("성공", data);
       });
     } 
