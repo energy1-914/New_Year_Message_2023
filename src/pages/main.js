@@ -20,7 +20,7 @@ export class MainView {
     for (let i = 0; i < length; i++) {
       postList.push(`
       <li class = "post">
-        <a class = "innerPost" href="#/postlist/${posts[i].title}">
+        <a class = "innerPost" href="#/postlist/${posts[i].title}/${i}">
           <img class="randomImg" src="https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg">
           <article>
             <strong>${posts[i].title}</strong>
