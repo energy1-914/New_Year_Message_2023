@@ -21,11 +21,29 @@ export class Api {
     const data = await response.text();
 
     if (response.ok) {
-      // console.log("응답 정상");
       return data;
     } else {
-      // console.log("에러~!~!!~", Error(data));
-      throw Error(data)
+      throw Error(data);
     }
+  }
+
+  static async delete(url) {
+    await fetch(url, { method: "DELETE" })
+      .then(response => response.text())
+      .then(data => console.log("data: ", data))
+      .catch(error => console.log("err: ", error));
+  }
+
+  static async patch(url, title, content) {
+    await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+      }),
+    });
   }
 }
