@@ -32,7 +32,7 @@ let template = `
           placeholder="글 내용을 작성해주세요."
         ></textarea>
       </div>
-      <button class="upload" type="submit" href="">게시하기</button>
+      <button class="upload" type="submit" href = "#" >게시하기</button>
     </form>  
   </main>
 `;
@@ -41,25 +41,28 @@ export class NewPostView {
   static render() {
     layout.innerHTML = template;
     document.title = "새 포스트 작성";
-    // document.querySelector("link").setAttribute("href", "src/css/newPost.scss");
-    this.upload();
+    // document.querySelector("link").setAttribute("href", "src/css/newPost.scss?after");
+    this.post();
   }
 
-  static upload() {
+  static post() {
     const form = document.querySelector("form");
     form.onsubmit = e => {
       e.preventDefault();
       let formData = new FormData(form);
-      let body = { image: "https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg" }; // image : 더미데이터
+      let body = {
+        image:
+          "https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg",
+      }; // image : 더미데이터
       for (let [key, value] of [...formData]) {
         body[key] = value;
       }
 
-      console.log("formData: ", formData);
-      console.log("formData: ", [...formData]); // [['title', 'dd'], ['content', 'dd']]
-
       Api.post(body)
-        .then(response => console.log("성공. post결과 : ", response))
+        .then(() => {
+          location.hash = "";
+          location.reload(true);
+        })
         .catch(error => console.log("에러 : ", error));
     };
   }
