@@ -2,12 +2,14 @@ const layout = document.getElementById("layout");
 let postList = [];
 let template = `
       <div class="header">
-        <h2>what's your 2023 message ?</h2>
+        <h2>What's your 2023 message ?</h2>
       </div>
       <div class="createPost">
         <a class="newPost" href="#/newpost">
-          <img class="pencil" src="https://cdn-icons-png.flaticon.com/512/650/650143.png">
-        new post
+          <img class="pencil" src="https://cdn-icons-png.flaticon.com/512/1665/1665628.png">
+          <span>
+            새 글 작성하기
+          </span>
         </a>
       </div>
       <ul class="postList">

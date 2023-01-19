@@ -10,49 +10,47 @@
   display: none;
 }
 
-
 #layout {
-  color: blue;
+  margin: 10px 0px;
+  background-color: #a9f5e6;
   max-width: $max_width;
   min-width: $breakpoint_mobile;
-  border: 1px solid black;
-  border-radius: $border_style;
+  border: 1px solid rgb(182, 180, 180);
+  margin: 10px 0px;
 }
 
 .header {
-  background-color: grey;
-  height: 83px;
   line-height: 83px;
-  border-bottom: 1px solid red;
   text-align: center;
   padding: 10px;
 }
 
 .createPost {
-  text-align: center;
-  background-color: burlywood;
-}
-
-.newPost {
+  margin: 0px 100px 20px 100px;
+  background-color: #fdfdbd;
+  box-shadow: 1px 3px 15px rgb(0 0 0 / 15%);
   cursor: pointer;
-  background-color: coral;
-  border-radius: $border_style;
-  padding: 20px 100px;
-  line-height: 80px;
 }
-
-.postList {
-  background-color: palevioletred;
+.newPost {
+  color: black;
+  line-height: 60px;
+  font-weight: bold;
+  font-size: large;
+  border: 1px solid rgb(239, 234, 234);
+  box-shadow: 1px 3px 15px rgb(0 0 0 / 15%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .post {
   list-style: none;
   padding: 10px;
   background-color: white;
-  border-radius: $border_style;
-  border: 1px solid black;
   display: flex;
   margin: 0px 20px 5%;
+  border: 1px solid rgb(182, 180, 180);
   box-shadow: 1px 3px 15px rgb(0 0 0 / 15%);
   height: 90px;
 }
@@ -67,6 +65,7 @@ article {
   flex-flow: column wrap;
   gap: 15px;
   padding-top: 10px;
+  color: black;
 }
 
 strong {
@@ -80,29 +79,25 @@ p {
 }
 
 .pencil {
-  width: 24px;
-  margin-right: 10px;
+  width: 25px;
 }
 
+span {
+  font-size: 18px;
+}
 .randomImg {
-  width: 76px;
-  height: 76px;
-  border-radius: $border_style;
+  width: 90px;
   object-fit: cover;
 }
 
 @include mobile {
-  body {
-    margin: 0 auto;
-  }
   #layout {
     width: 90%;
-    margin: auto;
   }
   h2 {
     width: 100%;
   }
-  strong{
+  strong {
     width: 140px;
   }
   p {
