@@ -8,6 +8,11 @@
   text-decoration: none;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
 .title {
   display: none;
 }
@@ -104,9 +109,6 @@ span {
 }
 
 @media (max-width: 640px) {
-  #layout {
-    width: 90%;
-  }
   h2 {
     width: 100%;
   }
@@ -115,17 +117,5 @@ span {
   }
   p {
     width: 250px;
-  }
-}
-@media (min-width: 641px) and (max-width: 1023px) {
-  body {
-    display: flex;
-    justify-content: center;
-  }
-}
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    justify-content: center;
   }
 }/*# sourceMappingURL=main.css.map */
