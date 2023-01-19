@@ -145,7 +145,6 @@ var MainView = /*#__PURE__*/function () {
       }
       template = template.replace("{{__post_list__}}", postList.join(""));
       layout.innerHTML = template;
-      // document.querySelector("link").setAttribute("href", "src/css/main.scss");
     }
   }]);
   return MainView;
@@ -266,6 +265,67 @@ var Api = /*#__PURE__*/function () {
       }
       return post;
     }()
+  }, {
+    key: "delete",
+    value: function () {
+      var _delete2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(url) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return fetch(url, {
+                  method: "DELETE"
+                }).then(function (response) {
+                  return response.text();
+                }).then(function (data) {
+                  return console.log("data: ", data);
+                }).catch(function (error) {
+                  return console.log("err: ", error);
+                });
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+      function _delete(_x2) {
+        return _delete2.apply(this, arguments);
+      }
+      return _delete;
+    }()
+  }, {
+    key: "patch",
+    value: function () {
+      var _patch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(url, title, content) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return fetch(url, {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    title: title,
+                    content: content
+                  })
+                });
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+      function patch(_x3, _x4, _x5) {
+        return _patch.apply(this, arguments);
+      }
+      return patch;
+    }()
   }]);
   return Api;
 }();
@@ -295,7 +355,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var layout = document.getElementById("layout");
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main class=\"main\">\n    <form>\n      <button name=\"image\" class=\"newImg\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n      <div class=\"post\">\n        <h3>Title</h3>\n        <input\n          name=\"title\"\n          class=\"inputTitle\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        />\n      </div>\n      <div class=\"post\">\n        <h3>Content</h3>\n        <textarea\n          name= \"content\"\n          class=\"content\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        ></textarea>\n      </div>\n      <button class=\"upload\" type=\"submit\" href=\"\">\uAC8C\uC2DC\uD558\uAE30</button>\n    </form>  \n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main class=\"main\">\n    <form>\n      <button name=\"image\" class=\"newImg\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n      <div class=\"post\">\n        <h3>Title</h3>\n        <input\n          name=\"title\"\n          class=\"inputTitle\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        />\n      </div>\n      <div class=\"post\">\n        <h3>Content</h3>\n        <textarea\n          name= \"content\"\n          class=\"content\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        ></textarea>\n      </div>\n      <button class=\"upload\" type=\"submit\" href = \"#\" >\uAC8C\uC2DC\uD558\uAE30</button>\n    </form>  \n  </main>\n";
 var NewPostView = /*#__PURE__*/function () {
   function NewPostView() {
     _classCallCheck(this, NewPostView);
@@ -305,12 +365,12 @@ var NewPostView = /*#__PURE__*/function () {
     value: function render() {
       layout.innerHTML = template;
       document.title = "새 포스트 작성";
-      // document.querySelector("link").setAttribute("href", "src/css/newPost.scss");
-      this.upload();
+      // document.querySelector("link").setAttribute("href", "src/css/newPost.scss?after");
+      this.post();
     }
   }, {
-    key: "upload",
-    value: function upload() {
+    key: "post",
+    value: function post() {
       var form = document.querySelector("form");
       form.onsubmit = function (e) {
         e.preventDefault();
@@ -324,11 +384,9 @@ var NewPostView = /*#__PURE__*/function () {
             value = _arr$_i[1];
           body[key] = value;
         }
-        console.log("formData: ", formData);
-        console.log("formData: ", _toConsumableArray(formData)); // [['title', 'dd'], ['content', 'dd']]
-
-        _api.Api.post(body).then(function (response) {
-          return console.log("성공. post결과 : ", response);
+        _api.Api.post(body).then(function () {
+          location.hash = "";
+          location.reload(true);
         }).catch(function (error) {
           return console.log("에러 : ", error);
         });
@@ -345,6 +403,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PostContentView = void 0;
+var _config = require("../../config");
+var _router = require("../cores/router");
+var _api = require("../cores/api");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -354,14 +415,24 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var layout = document.getElementById("layout");
 var imageInformation = [];
 var postInformation = [];
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"content\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n    </article>\n    <section>\uB313\uAE00\uC790\uB9AC</section>\n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n    </article>\n    <section>\uB313\uAE00\uC790\uB9AC</section>\n  </main>\n";
 var PostContentView = /*#__PURE__*/function () {
   function PostContentView() {
     _classCallCheck(this, PostContentView);
+    this.url;
+    this.title;
+    this.content;
+    this.template;
   }
   _createClass(PostContentView, null, [{
     key: "render",
-    value: function render(title, content, image, date) {
+    value: function render(title, content, image, date, postId) {
+      var _this = this;
+      // const link = document.getElementsByTagName("link");
+      // link.setAttribute("href", "src/css/postContent.scss?after");
+      this.url = _config.POST_URL + "/".concat(postId);
+      this.title = "".concat(title);
+      this.content = "".concat(content, ";");
       layout.innerHTML = template;
       document.title = "".concat(title);
       postInformation.push("\n      <span id=\"clock\">".concat(date, "</span>\n      <h2 id = \"title\">").concat(title, "</h2>\n      <p id = \"text\">").concat(content, "</p>\n    "));
@@ -369,14 +440,46 @@ var PostContentView = /*#__PURE__*/function () {
       template = template.replace("{{__post_information__}}", postInformation.join(""));
       template = template.replace("{{__post_image__}}", imageInformation.join(""));
       layout.innerHTML = template;
-      location.href = location.href;
-      // location.reload();
+      this.template = template;
+      document.getElementById("patchIcon").addEventListener("click", function () {
+        _this.renderPatchView();
+      });
+      this.delete();
+    }
+  }, {
+    key: "delete",
+    value: function _delete() {
+      var _this2 = this;
+      var deleteIcon = document.getElementById("deleteIcon");
+      deleteIcon.addEventListener("click", function () {
+        _api.Api.delete(_this2.url);
+        location.hash = "";
+      });
+    }
+  }, {
+    key: "renderPatchView",
+    value: function renderPatchView() {
+      var _this3 = this;
+      var newTemplate = "\n          <div class=\"post\">\n            <input\n              type=\"text\"\n              value= \"".concat(this.title, "\"\n            />\n            <textarea\n              type=\"text\"\n              value = \"").concat(this.content, "\"\n            ></textarea>\n          </div>\n          <button class=\"upload\" href=\"\">\uC218\uC815\uD558\uAE30</button>");
+      var contentGroup = document.querySelector(".contentGroup");
+      while (contentGroup.firstChild) {
+        contentGroup.removeChild(contentGroup.firstChild);
+      }
+      contentGroup.insertAdjacentHTML("afterbegin", newTemplate);
+      document.querySelector("button").addEventListener("click", function () {
+        _this3.title = document.querySelector("input").value;
+        _this3.content = document.querySelector("textarea").value;
+        _api.Api.patch(_this3.url, _this3.title, _this3.content).then(function () {
+          _this3.render();
+          location.reload(true);
+        });
+      });
     }
   }]);
   return PostContentView;
 }();
 exports.PostContentView = PostContentView;
-},{}],"src/cores/router.js":[function(require,module,exports) {
+},{"../../config":"config.js","../cores/router":"src/cores/router.js","../cores/api":"src/cores/api.js"}],"src/cores/router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -385,6 +488,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.Router = void 0;
 var _main = require("../pages/main");
 var _newPost = require("../pages/newPost");
+var _config = require("../../config");
 var _postContent = require("../pages/postContent");
 var _api = require("./api");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -406,19 +510,19 @@ var Router = /*#__PURE__*/function () {
           var length = data.data.posts.length;
           var posts = data.data.posts;
           _main.MainView.render(length, posts);
-          console.log("성공", data);
         }).catch(function (error) {
           return console.log("에러", error);
         });
       } else if (routePath.includes("#/postlist/")) {
         var i = routePath.split("/")[3];
         _api.Api.get().then(function (data) {
-          var title = data.data.posts[i].title;
-          var content = data.data.posts[i].content;
-          var image = data.data.posts[i].image;
-          var date = data.data.posts[i].updatedAt.slice(0, 10).replaceAll('-', '.');
-          _postContent.PostContentView.render(title, content, image, date);
-          console.log("성공", data);
+          var post = data.data.posts[i];
+          var title = post.title;
+          var content = post.content;
+          var image = post.image;
+          var date = post.updatedAt.slice(0, 10).replaceAll("-", ".");
+          var postId = post.postId;
+          _postContent.PostContentView.render(title, content, image, date, postId);
         });
       } else if (routePath.includes("#/newpost")) {
         _newPost.NewPostView.render();
@@ -428,7 +532,7 @@ var Router = /*#__PURE__*/function () {
   return Router;
 }();
 exports.Router = Router;
-},{"../pages/main":"src/pages/main.js","../pages/newPost":"src/pages/newPost.js","../pages/postContent":"src/pages/postContent.js","./api":"src/cores/api.js"}],"src/app.js":[function(require,module,exports) {
+},{"../pages/main":"src/pages/main.js","../pages/newPost":"src/pages/newPost.js","../../config":"config.js","../pages/postContent":"src/pages/postContent.js","./api":"src/cores/api.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _router = require("./cores/router");
@@ -459,7 +563,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57861" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63655" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

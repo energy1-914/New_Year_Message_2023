@@ -1,5 +1,6 @@
 import { MainView } from "../pages/main";
 import { NewPostView } from "../pages/newPost";
+import { POST_URL } from "../../config";
 import { PostContentView } from "../pages/postContent";
 import { Api } from "./api";
 
@@ -13,24 +14,22 @@ export class Router {
           let length = data.data.posts.length;
           let posts = data.data.posts;
           MainView.render(length, posts);
-          console.log("성공", data);
         })
         .catch(error => console.log("에러", error));
-    } 
-    else if (routePath.includes("#/postlist/")) {
+    } else if (routePath.includes("#/postlist/")) {
       const i = routePath.split("/")[3];
       Api.get().then(data => {
-        let title = data.data.posts[i].title;
-        let content = data.data.posts[i].content;
-        let image = data.data.posts[i].image;
-        let date = data.data.posts[i].updatedAt.slice(0, 10).replaceAll('-', '.');
-        let postId = data.data.posts[i].postId;
-        
+        let post = data.data.posts[i];
+        let title = post.title;
+        let content = post.content;
+        let image = post.image;
+        let date = post.updatedAt
+          .slice(0, 10)
+          .replaceAll("-", ".");
+        let postId = post.postId;
         PostContentView.render(title, content, image, date, postId);
-        console.log("성공", data);
       });
-    } 
-    else if (routePath.includes("#/newpost")) {
+    } else if (routePath.includes("#/newpost")) {
       NewPostView.render();
     }
   }

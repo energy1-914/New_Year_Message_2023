@@ -43,7 +43,7 @@ article {
   object-fit: cover;
 }
 
-.content {
+.contentGroup {
   padding: 10px;
   display: flex;
   flex-direction: column;

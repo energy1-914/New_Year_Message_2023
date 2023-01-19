@@ -32,6 +32,5 @@ export class MainView {
     }
     template = template.replace("{{__post_list__}}", postList.join(""));
     layout.innerHTML = template;
-    // document.querySelector("link").setAttribute("href", "src/css/main.scss");
   }
 }
