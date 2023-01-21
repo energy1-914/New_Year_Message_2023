@@ -132,7 +132,7 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var layout = document.getElementById("layout");
 var postList = [];
-var template = "\n      <div class=\"header\">\n        <h2>what's your 2023 message ?</h2>\n      </div>\n      <div class=\"createPost\">\n        <a class=\"newPost\" href=\"#/newpost\">\n          <img class=\"pencil\" src=\"https://cdn-icons-png.flaticon.com/512/650/650143.png\">\n        new post\n        </a>\n      </div>\n      <ul class=\"postList\">\n          {{__post_list__}}\n      </ul>\n";
+var template = "\n      <div class=\"header\">\n        <h2>What's your 2023 message ?</h2>\n      </div>\n      <div class=\"createPost\">\n        <a class=\"newPost\" href=\"#/newpost\">\n          <img class=\"pencil\" src=\"https://cdn-icons-png.flaticon.com/512/1665/1665628.png\">\n          <span>\n            \uC0C8 \uAE00 \uC791\uC131\uD558\uAE30\n          </span>\n        </a>\n      </div>\n      <ul class=\"postList\">\n          {{__post_list__}}\n      </ul>\n";
 var MainView = /*#__PURE__*/function () {
   function MainView() {
     _classCallCheck(this, MainView);
@@ -156,13 +156,15 @@ exports.MainView = MainView;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.POST_URL = exports.POSTS_URL = exports.BASE_URL = void 0;
+exports.POST_URL = exports.POSTS_URL = exports.COMMENT_URL = exports.BASE_URL = void 0;
 var BASE_URL = "http://43.201.103.199";
 exports.BASE_URL = BASE_URL;
 var POSTS_URL = BASE_URL + "/posts";
 exports.POSTS_URL = POSTS_URL;
 var POST_URL = "http://43.201.103.199/post";
 exports.POST_URL = POST_URL;
+var COMMENT_URL = "http://43.201.103.199/comment";
+exports.COMMENT_URL = COMMENT_URL;
 },{}],"src/cores/api.js":[function(require,module,exports) {
 "use strict";
 
@@ -224,13 +226,12 @@ var Api = /*#__PURE__*/function () {
   }, {
     key: "post",
     value: function () {
-      var _post = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(body) {
-        var url, options, response, data;
+      var _post = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(url, body) {
+        var options, response, data;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                url = _config.POST_URL;
                 options = {
                   method: "POST",
                   headers: {
@@ -238,29 +239,29 @@ var Api = /*#__PURE__*/function () {
                   },
                   body: JSON.stringify(body)
                 };
-                _context2.next = 4;
+                _context2.next = 3;
                 return fetch(url, options);
-              case 4:
+              case 3:
                 response = _context2.sent;
-                _context2.next = 7;
+                _context2.next = 6;
                 return response.text();
-              case 7:
+              case 6:
                 data = _context2.sent;
                 if (!response.ok) {
-                  _context2.next = 12;
+                  _context2.next = 11;
                   break;
                 }
                 return _context2.abrupt("return", data);
-              case 12:
+              case 11:
                 throw Error(data);
-              case 13:
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
         }, _callee2);
       }));
-      function post(_x) {
+      function post(_x, _x2) {
         return _post.apply(this, arguments);
       }
       return post;
@@ -290,7 +291,7 @@ var Api = /*#__PURE__*/function () {
           }
         }, _callee3);
       }));
-      function _delete(_x2) {
+      function _delete(_x3) {
         return _delete2.apply(this, arguments);
       }
       return _delete;
@@ -321,7 +322,7 @@ var Api = /*#__PURE__*/function () {
           }
         }, _callee4);
       }));
-      function patch(_x3, _x4, _x5) {
+      function patch(_x4, _x5, _x6) {
         return _patch.apply(this, arguments);
       }
       return patch;
@@ -337,6 +338,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.NewPostView = void 0;
+var _config = require("../../config");
 var _api = require("../cores/api");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -355,7 +357,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var layout = document.getElementById("layout");
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main class=\"main\">\n    <form>\n      <button name=\"image\" class=\"newImg\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n      <div class=\"post\">\n        <h3>Title</h3>\n        <input\n          name=\"title\"\n          class=\"inputTitle\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        />\n      </div>\n      <div class=\"post\">\n        <h3>Content</h3>\n        <textarea\n          name= \"content\"\n          class=\"content\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        ></textarea>\n      </div>\n      <button class=\"upload\" type=\"submit\" href = \"#\" >\uAC8C\uC2DC\uD558\uAE30</button>\n    </form>  \n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main class=\"main\">\n    <form>\n      <button name=\"image\" class=\"newImg\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n      <div class=\"post\">\n        <h3>Title</h3>\n        <input\n          name=\"title\"\n          class=\"inputTitle\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        />\n      </div>\n      <div class=\"post\">\n        <h3>Content</h3>\n        <textarea\n          name= \"content\"\n          class=\"content\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        ></textarea>\n      </div>\n      <button class=\"upload\" type=\"submit\">\uAC8C\uC2DC\uD558\uAE30</button>\n    </form>  \n  </main>\n";
 var NewPostView = /*#__PURE__*/function () {
   function NewPostView() {
     _classCallCheck(this, NewPostView);
@@ -365,7 +367,7 @@ var NewPostView = /*#__PURE__*/function () {
     value: function render() {
       layout.innerHTML = template;
       document.title = "새 포스트 작성";
-      // document.querySelector("link").setAttribute("href", "src/css/newPost.scss?after");
+      // document.querySelector("link").setAttribute("href", "src/css/newPost.scss"); // 작동안함
       this.post();
     }
   }, {
@@ -384,11 +386,11 @@ var NewPostView = /*#__PURE__*/function () {
             value = _arr$_i[1];
           body[key] = value;
         }
-        _api.Api.post(body).then(function () {
+        _api.Api.post(_config.POST_URL, body).then(function () {
           location.hash = "";
           location.reload(true);
-        }).catch(function (error) {
-          return console.log("에러 : ", error);
+        }).catch(function () {
+          return alert("제목과 내용 모두 작성하시기 바랍니다.");
         });
       };
     }
@@ -396,7 +398,7 @@ var NewPostView = /*#__PURE__*/function () {
   return NewPostView;
 }();
 exports.NewPostView = NewPostView;
-},{"../cores/api":"src/cores/api.js"}],"src/pages/postContent.js":[function(require,module,exports) {
+},{"../../config":"config.js","../cores/api":"src/cores/api.js"}],"src/pages/postContent.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -404,9 +406,18 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PostContentView = void 0;
 var _config = require("../../config");
-var _router = require("../cores/router");
 var _api = require("../cores/api");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) { ; } } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -415,7 +426,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var layout = document.getElementById("layout");
 var imageInformation = [];
 var postInformation = [];
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n    </article>\n    <section>\uB313\uAE00\uC790\uB9AC</section>\n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n      <section>\n      <div id=\"line\"/>\n        <form>\n            <input name=\"comment\" type=\"text\" />\n            <button type=\"submit\" > \uC81C\uCD9C\uD558\uAE30  </button>\n        </form>   \n      </section>\n    </article>\n  </main>\n";
 var PostContentView = /*#__PURE__*/function () {
   function PostContentView() {
     _classCallCheck(this, PostContentView);
@@ -428,8 +439,8 @@ var PostContentView = /*#__PURE__*/function () {
     key: "render",
     value: function render(title, content, image, date, postId) {
       var _this = this;
-      // const link = document.getElementsByTagName("link");
-      // link.setAttribute("href", "src/css/postContent.scss?after");
+      // document.querySelector("link").setAttribute("href", "src/css/postContent.scss"); //작동안됨
+
       this.url = _config.POST_URL + "/".concat(postId);
       this.title = "".concat(title);
       this.content = "".concat(content, ";");
@@ -445,6 +456,7 @@ var PostContentView = /*#__PURE__*/function () {
         _this.renderPatchView();
       });
       this.delete();
+      this.setComment();
     }
   }, {
     key: "delete",
@@ -460,7 +472,7 @@ var PostContentView = /*#__PURE__*/function () {
     key: "renderPatchView",
     value: function renderPatchView() {
       var _this3 = this;
-      var newTemplate = "\n          <div class=\"post\">\n            <input\n              type=\"text\"\n              value= \"".concat(this.title, "\"\n            />\n            <textarea\n              type=\"text\"\n              value = \"").concat(this.content, "\"\n            ></textarea>\n          </div>\n          <button class=\"upload\" href=\"\">\uC218\uC815\uD558\uAE30</button>");
+      var newTemplate = "\n          <div class=\"post\">\n            <input\n              id = \"patchInput\"\n              type=\"text\"\n              value= \"".concat(this.title, "\"\n            />\n            <textarea\n              type=\"text\"\n              value = \"").concat(this.content, "\"\n            ></textarea>\n          </div>\n          <button class=\"upload\" href=\"\">\uC218\uC815\uD558\uAE30</button>");
       var contentGroup = document.querySelector(".contentGroup");
       while (contentGroup.firstChild) {
         contentGroup.removeChild(contentGroup.firstChild);
@@ -475,11 +487,43 @@ var PostContentView = /*#__PURE__*/function () {
         });
       });
     }
+  }, {
+    key: "setComment",
+    value: function setComment() {
+      var _this4 = this;
+      this.url = this.url.replace("post", "comment");
+      var form = document.querySelector("form");
+      form.onsubmit = function (e) {
+        // e.preventDefault();
+        var formData = new FormData(form);
+        var body = {};
+        for (var _i = 0, _arr = _toConsumableArray(formData); _i < _arr.length; _i++) {
+          var _arr$_i = _slicedToArray(_arr[_i], 2),
+            key = _arr$_i[0],
+            value = _arr$_i[1];
+          body[key] = value;
+        }
+        _api.Api.post(_this4.url, body).then(function () {
+          // location.hash = "";
+          location.reload(true);
+        }).catch(function () {
+          return alert("제목과 내용 모두 작성하시기 바랍니다.");
+        });
+      };
+    }
   }]);
   return PostContentView;
 }();
+/* <form>
+          <div class="commentForm">
+            <input class="commentInput" type="text" />
+            <button class="commentBtn" type="submit">
+              <image class="buttonIcon" src="https://cdn-icons-png.flaticon.com/512/9446/9446874.png">
+            </button>
+          </div>
+        </form>    */
 exports.PostContentView = PostContentView;
-},{"../../config":"config.js","../cores/router":"src/cores/router.js","../cores/api":"src/cores/api.js"}],"src/cores/router.js":[function(require,module,exports) {
+},{"../../config":"config.js","../cores/api":"src/cores/api.js"}],"src/cores/router.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -488,7 +532,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.Router = void 0;
 var _main = require("../pages/main");
 var _newPost = require("../pages/newPost");
-var _config = require("../../config");
 var _postContent = require("../pages/postContent");
 var _api = require("./api");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -510,6 +553,7 @@ var Router = /*#__PURE__*/function () {
           var length = data.data.posts.length;
           var posts = data.data.posts;
           _main.MainView.render(length, posts);
+          console.log(data);
         }).catch(function (error) {
           return console.log("에러", error);
         });
@@ -532,7 +576,7 @@ var Router = /*#__PURE__*/function () {
   return Router;
 }();
 exports.Router = Router;
-},{"../pages/main":"src/pages/main.js","../pages/newPost":"src/pages/newPost.js","../../config":"config.js","../pages/postContent":"src/pages/postContent.js","./api":"src/cores/api.js"}],"src/app.js":[function(require,module,exports) {
+},{"../pages/main":"src/pages/main.js","../pages/newPost":"src/pages/newPost.js","../pages/postContent":"src/pages/postContent.js","./api":"src/cores/api.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _router = require("./cores/router");
@@ -563,7 +607,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63655" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61869" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
