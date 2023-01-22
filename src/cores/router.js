@@ -1,6 +1,5 @@
 import { MainView } from "../pages/main";
 import { NewPostView } from "../pages/newPost";
-import { POST_URL } from "../../config";
 import { PostContentView } from "../pages/postContent";
 import { Api } from "./api";
 
@@ -14,6 +13,7 @@ export class Router {
           let length = data.data.posts.length;
           let posts = data.data.posts;
           MainView.render(length, posts);
+          console.log(data);
         })
         .catch(error => console.log("에러", error));
     } else if (routePath.includes("#/postlist/")) {

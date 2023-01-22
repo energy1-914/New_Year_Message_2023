@@ -10,8 +10,7 @@ export class Api {
     else throw Error(data);
   }
 
-  static async post(body) {
-    const url = POST_URL;
+  static async post(url, body) {
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -1,3 +1,4 @@
+import { POST_URL } from "../../config";
 import { Api } from "../cores/api";
 const layout = document.getElementById("layout");
 
@@ -32,7 +33,7 @@ let template = `
           placeholder="글 내용을 작성해주세요."
         ></textarea>
       </div>
-      <button class="upload" type="submit" href = "#" >게시하기</button>
+      <button class="upload" type="submit">게시하기</button>
     </form>  
   </main>
 `;
@@ -41,7 +42,7 @@ export class NewPostView {
   static render() {
     layout.innerHTML = template;
     document.title = "새 포스트 작성";
-    // document.querySelector("link").setAttribute("href", "src/css/newPost.scss?after");
+    // document.querySelector("link").setAttribute("href", "src/css/newPost.scss"); // 작동안함
     this.post();
   }
 
@@ -57,13 +58,12 @@ export class NewPostView {
       for (let [key, value] of [...formData]) {
         body[key] = value;
       }
-
-      Api.post(body)
+      Api.post(POST_URL, body)
         .then(() => {
           location.hash = "";
           location.reload(true);
         })
-        .catch(error => console.log("에러 : ", error));
+        .catch(() => alert("제목과 내용 모두 작성하시기 바랍니다."));
     };
   }
 }

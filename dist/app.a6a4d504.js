@@ -156,15 +156,13 @@ exports.MainView = MainView;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.POST_URL = exports.POSTS_URL = exports.COMMENT_URL = exports.BASE_URL = void 0;
+exports.POST_URL = exports.POSTS_URL = exports.BASE_URL = void 0;
 var BASE_URL = "http://43.201.103.199";
 exports.BASE_URL = BASE_URL;
 var POSTS_URL = BASE_URL + "/posts";
 exports.POSTS_URL = POSTS_URL;
 var POST_URL = "http://43.201.103.199/post";
 exports.POST_URL = POST_URL;
-var COMMENT_URL = "http://43.201.103.199/comment";
-exports.COMMENT_URL = COMMENT_URL;
 },{}],"src/cores/api.js":[function(require,module,exports) {
 "use strict";
 
@@ -426,7 +424,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var layout = document.getElementById("layout");
 var imageInformation = [];
 var postInformation = [];
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n      <section>\n      <div id=\"line\"/>\n        <form>\n            <input name=\"comment\" type=\"text\" />\n            <button type=\"submit\" > \uC81C\uCD9C\uD558\uAE30  </button>\n        </form>   \n      </section>\n    </article>\n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n      <section>\n      <div id=\"line\"/>\n        <form>\n            <input name=\"content\" type=\"text\" />\n            <button type=\"submit\" > \uC81C\uCD9C\uD558\uAE30  </button>\n        </form>   \n      </section>\n    </article>\n  </main>\n";
 var PostContentView = /*#__PURE__*/function () {
   function PostContentView() {
     _classCallCheck(this, PostContentView);
@@ -491,10 +489,10 @@ var PostContentView = /*#__PURE__*/function () {
     key: "setComment",
     value: function setComment() {
       var _this4 = this;
-      this.url = this.url.replace("post", "comment");
+      var url = this.url.replace("post", "comment");
       var form = document.querySelector("form");
       form.onsubmit = function (e) {
-        // e.preventDefault();
+        e.preventDefault();
         var formData = new FormData(form);
         var body = {};
         for (var _i = 0, _arr = _toConsumableArray(formData); _i < _arr.length; _i++) {
@@ -503,12 +501,20 @@ var PostContentView = /*#__PURE__*/function () {
             value = _arr$_i[1];
           body[key] = value;
         }
-        _api.Api.post(_this4.url, body).then(function () {
+        _api.Api.post(url, body).then(function (data) {
+          var objData = JSON.parse(data);
+          var content = objData.data.content;
+          var line = document.querySelector("#line");
+          var contentInformation = [];
+          contentInformation.push("\n          <div>".concat(content, "</div>\n          "));
+          line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
+          _this4.template = layout.innerHTML;
           // location.hash = "";
-          location.reload(true);
-        }).catch(function () {
-          return alert("제목과 내용 모두 작성하시기 바랍니다.");
+          // location.reload(true); 
+        }).catch(function (error) {
+          return console.log("err: ", error);
         });
+        return _this4.template;
       };
     }
   }]);
@@ -607,7 +613,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61869" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56597" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
