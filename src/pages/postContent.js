@@ -1,5 +1,4 @@
 import { POST_URL } from "../../config";
-import { Router } from "../cores/router";
 import { Api } from "../cores/api";
 
 const layout = document.getElementById("layout");
@@ -33,8 +32,14 @@ let template = `
           />
         </div>
       </div>
+      <section>
+      <div id="line"/>
+        <form>
+            <input name="content" type="text" />
+            <button type="submit" > 제출하기  </button>
+        </form>   
+      </section>
     </article>
-    <section>댓글자리</section>
   </main>
 `;
 
@@ -46,8 +51,8 @@ export class PostContentView {
     this.template;
   }
   static render(title, content, image, date, postId) {
-    // const link = document.getElementsByTagName("link");
-    // link.setAttribute("href", "src/css/postContent.scss?after");
+    // document.querySelector("link").setAttribute("href", "src/css/postContent.scss"); //작동안됨
+
     this.url = POST_URL + `/${postId}`;
     this.title = `${title}`;
     this.content = `${content};`;
@@ -75,10 +80,12 @@ export class PostContentView {
     );
     layout.innerHTML = template;
     this.template = template;
+
     document.getElementById("patchIcon").addEventListener("click", () => {
       this.renderPatchView();
     });
     this.delete();
+    this.setComment();
   }
 
   static delete() {
@@ -93,6 +100,7 @@ export class PostContentView {
     let newTemplate = `
           <div class="post">
             <input
+              id = "patchInput"
               type="text"
               value= "${this.title}"
             />
@@ -113,11 +121,49 @@ export class PostContentView {
     document.querySelector("button").addEventListener("click", () => {
       this.title = document.querySelector("input").value;
       this.content = document.querySelector("textarea").value;
-      Api.patch(this.url, this.title, this.content)
-        .then(() => {
-          this.render();
-          location.reload(true);
-        });
+
+      Api.patch(this.url, this.title, this.content).then(() => {
+        this.render();
+        location.reload(true);
+      });
     });
   }
+
+  static setComment() {
+    const url = this.url.replace("post", "comment");
+    const form = document.querySelector("form");
+    form.onsubmit = e => {
+      e.preventDefault();
+      let formData = new FormData(form);
+      let body = {};
+      for (let [key, value] of [...formData]) {
+        body[key] = value;
+      }
+      Api.post(url, body)
+        .then((data) => {
+          let objData = JSON.parse(data);
+          let content = objData.data.content;
+          let line = document.querySelector("#line");
+          let contentInformation = [];
+          contentInformation.push(`
+          <div>${content}</div>
+          `)
+          line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
+          this.template = layout.innerHTML;
+          // location.hash = "";
+          // location.reload(true); 
+        })
+        .catch(error => console.log("err: ", error));
+        return this.template;
+    };
+  }
 }
+/* <form>
+          <div class="commentForm">
+            <input class="commentInput" type="text" />
+            <button class="commentBtn" type="submit">
+              <image class="buttonIcon" src="https://cdn-icons-png.flaticon.com/512/9446/9446874.png">
+            </button>
+          </div>
+        </form>    */
+
