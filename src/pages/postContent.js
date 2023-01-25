@@ -35,8 +35,12 @@ let template = `
       <section>
       <div id="line"/>
         <form>
-            <input name="content" type="text" />
-            <button type="submit" > 제출하기  </button>
+          <div class="commentForm">
+            <input name="content" class="commentInput" type="text" />
+            <button type="submit" class="commentBtn" > 
+              <image class="buttonIcon" src="https://cdn-icons-png.flaticon.com/512/9446/9446874.png">
+            </button>
+          </div>  
         </form>   
       </section>
     </article>
@@ -140,15 +144,15 @@ export class PostContentView {
         body[key] = value;
       }
       Api.post(url, body)
-      .then(data => {
-        let objData = JSON.parse(data);
-        let content = objData.data.content;
-        let line = document.querySelector("#line");
-        let contentInformation = [];
-        let commentId = objData.data.commentId;
-        let commentUrl = COMMENT_URL + "/" + commentId;
+        .then(data => {
+          let objData = JSON.parse(data);
+          let content = objData.data.content;
+          let line = document.querySelector("#line");
+          let contentInformation = [];
+          let commentId = objData.data.commentId;
+          let commentUrl = COMMENT_URL + "/" + commentId;
 
-        contentInformation.push(`
+          contentInformation.push(`
           <div class="comment">
           <p>${content}</p>
           <image 
@@ -163,14 +167,14 @@ export class PostContentView {
           // location.reload(true);
         })
         .catch(error => console.log("err: ", error));
-      };
+    };
   }
 
   static deleteComment(u) {
-    const deleteComment = document.querySelector(".deleteComment");    
+    const deleteComment = document.querySelector(".deleteComment");
     deleteComment.addEventListener("click", async () => {
-     await Api.delete(u);
-     deleteComment.parentNode.remove();
+      await Api.delete(u);
+      deleteComment.parentNode.remove();
     });
   }
 }
