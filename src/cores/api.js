@@ -1,4 +1,4 @@
-import { POSTS_URL, POST_URL } from "../../config.js";
+import { POSTS_URL } from "../../config.js";
 
 export class Api {
   static async get() {
@@ -29,7 +29,9 @@ export class Api {
   static async delete(url) {
     await fetch(url, { method: "DELETE" })
       .then(response => response.text())
-      .then(data => console.log("data: ", data))
+      .then(data => {
+        return data;
+      })
       .catch(error => console.log("err: ", error));
   }
 

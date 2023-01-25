@@ -280,7 +280,7 @@ var Api = /*#__PURE__*/function () {
                 }).then(function (response) {
                   return response.text();
                 }).then(function (data) {
-                  return console.log("data: ", data);
+                  return data;
                 }).catch(function (error) {
                   return console.log("err: ", error);
                 });
@@ -429,7 +429,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var layout = document.getElementById("layout");
 var imageInformation = [];
 var postInformation = [];
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n      <section>\n      <div id=\"line\"/>\n        <form>\n            <input name=\"content\" type=\"text\" />\n            <button type=\"submit\" > \uC81C\uCD9C\uD558\uAE30  </button>\n        </form>   \n      </section>\n    </article>\n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n      <section>\n      <div id=\"line\"/>\n        <form>\n          <div class=\"commentForm\">\n            <input name=\"content\" class=\"commentInput\" type=\"text\" />\n            <button type=\"submit\" class=\"commentBtn\" > \n              <image class=\"buttonIcon\" src=\"https://cdn-icons-png.flaticon.com/512/9446/9446874.png\">\n            </button>\n          </div>  \n        </form>   \n      </section>\n    </article>\n  </main>\n";
 var PostContentView = /*#__PURE__*/function () {
   function PostContentView() {
     _classCallCheck(this, PostContentView);
@@ -640,7 +640,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51689" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65048" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
