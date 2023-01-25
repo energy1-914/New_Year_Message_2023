@@ -8,6 +8,11 @@
   text-decoration: none;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
 .title {
   display: none;
 }
@@ -18,7 +23,7 @@
   max-width: 640px;
   min-width: 400px;
   border: 1px solid rgb(182, 180, 180);
-  margin: 10px 0px;
+  box-shadow: 1px 3px 15px rgba(0, 0, 0, 0.15);
 }
 
 .header {
@@ -103,9 +108,6 @@ span {
 }
 
 @media (max-width: 640px) {
-  #layout {
-    width: 90%;
-  }
   h2 {
     width: 100%;
   }
@@ -114,18 +116,6 @@ span {
   }
   p {
     width: 250px;
-  }
-}
-@media (min-width: 641px) and (max-width: 1023px) {
-  body {
-    display: flex;
-    justify-content: center;
-  }
-}
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    justify-content: center;
   }
 }
 

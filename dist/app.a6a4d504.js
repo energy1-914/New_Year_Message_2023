@@ -159,7 +159,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.POST_URL = exports.POSTS_URL = exports.COMMENT_URL = exports.BASE_URL = void 0;
 var BASE_URL = "http://43.201.103.199";
 exports.BASE_URL = BASE_URL;
-var POSTS_URL = BASE_URL + "/posts";
+var POSTS_URL = "http://43.201.103.199/posts";
 exports.POSTS_URL = POSTS_URL;
 var POST_URL = "http://43.201.103.199/post";
 exports.POST_URL = POST_URL;
@@ -367,7 +367,7 @@ var NewPostView = /*#__PURE__*/function () {
     value: function render() {
       layout.innerHTML = template;
       document.title = "새 포스트 작성";
-      // document.querySelector("link").setAttribute("href", "src/css/newPost.scss"); // 작동안함
+      document.querySelector("link").setAttribute("href", "src/css/newPost.scss?ver0.1");
       this.post();
     }
   }, {
@@ -442,8 +442,7 @@ var PostContentView = /*#__PURE__*/function () {
     key: "render",
     value: function render(title, content, image, date, postId) {
       var _this = this;
-      // document.querySelector("link").setAttribute("href", "src/css/postContent.scss"); //작동안됨
-
+      document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1");
       this.url = _config.POST_URL + "/".concat(postId);
       this.title = "".concat(title);
       this.content = "".concat(content, ";");
@@ -640,7 +639,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65048" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59264" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

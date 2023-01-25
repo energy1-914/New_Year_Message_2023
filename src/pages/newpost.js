@@ -42,7 +42,7 @@ export class NewPostView {
   static render() {
     layout.innerHTML = template;
     document.title = "새 포스트 작성";
-    // document.querySelector("link").setAttribute("href", "src/css/newPost.scss"); // 작동안함
+    document.querySelector("link").setAttribute("href", "src/css/newPost.scss?ver0.1");
     this.post();
   }
 

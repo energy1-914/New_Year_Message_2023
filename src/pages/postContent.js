@@ -55,8 +55,7 @@ export class PostContentView {
     this.template;
   }
   static render(title, content, image, date, postId) {
-    // document.querySelector("link").setAttribute("href", "src/css/postContent.scss"); //작동안됨
-
+    document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1"); 
     this.url = POST_URL + `/${postId}`;
     this.title = `${title}`;
     this.content = `${content};`;
