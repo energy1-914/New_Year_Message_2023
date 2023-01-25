@@ -1,4 +1,4 @@
-import { POST_URL } from "../../config";
+import { COMMENT_URL, POST_URL } from "../../config";
 import { Api } from "../cores/api";
 
 const layout = document.getElementById("layout");
@@ -130,7 +130,7 @@ export class PostContentView {
   }
 
   static setComment() {
-    const url = this.url.replace("post", "comment");
+    let url = this.url.replace("post", "comment");
     const form = document.querySelector("form");
     form.onsubmit = e => {
       e.preventDefault();
@@ -140,22 +140,38 @@ export class PostContentView {
         body[key] = value;
       }
       Api.post(url, body)
-        .then((data) => {
-          let objData = JSON.parse(data);
-          let content = objData.data.content;
-          let line = document.querySelector("#line");
-          let contentInformation = [];
-          contentInformation.push(`
-          <div>${content}</div>
-          `)
+      .then(data => {
+        let objData = JSON.parse(data);
+        let content = objData.data.content;
+        let line = document.querySelector("#line");
+        let contentInformation = [];
+        let commentId = objData.data.commentId;
+        let commentUrl = COMMENT_URL + "/" + commentId;
+
+        contentInformation.push(`
+          <div class="comment">
+          <p>${content}</p>
+          <image 
+            src="https://cdn-icons-png.flaticon.com/512/2087/2087825.png" 
+            class="deleteComment"          
+            >
+          </div>
+          `);
           line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
           this.template = layout.innerHTML;
-          // location.hash = "";
-          // location.reload(true); 
+          this.deleteComment(commentUrl);
+          // location.reload(true);
         })
         .catch(error => console.log("err: ", error));
-        return this.template;
-    };
+      };
+  }
+
+  static deleteComment(u) {
+    const deleteComment = document.querySelector(".deleteComment");    
+    deleteComment.addEventListener("click", async () => {
+     await Api.delete(u);
+     deleteComment.parentNode.remove();
+    });
   }
 }
 /* <form>
@@ -166,4 +182,3 @@ export class PostContentView {
             </button>
           </div>
         </form>    */
-

@@ -152,4 +152,18 @@ textarea {
   background-color: white;
 }
 
+form {
+  padding: 10px 4px;
+}
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 5px;
+}
+
+.deleteComment {
+  width: 20px;
+}
+
 /*# sourceMappingURL=/postContent.ee060683.css.map */
