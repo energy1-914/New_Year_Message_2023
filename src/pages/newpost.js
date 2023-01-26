@@ -50,7 +50,6 @@ export class NewPostView {
 
   static getRandomImg() {
     const imgIcon = document.querySelector(".newImg");
-    const form = document.querySelector("form");
     imgIcon.addEventListener("click", () => {
       imgIcon.innerHTML = "이미지 추가완료"
       imgIcon.disabled = true;
@@ -63,7 +62,7 @@ export class NewPostView {
       e.preventDefault();
       let formData = new FormData(form);
       let body = {
-        img: "https://source.unsplash.com/random",
+        image: "https://source.unsplash.com/random",
       }; 
       for (let [key, value] of [...formData]) {
         body[key] = value;
@@ -73,7 +72,7 @@ export class NewPostView {
           location.hash = "";
           location.reload(true);
         })
-        .catch(() => alert("제목과 내용 모두 작성하시기 바랍니다."));
+        .catch((err) => console.log(err));
     };
   }
 }

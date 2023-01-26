@@ -23,7 +23,7 @@ export class MainView {
       postList.push(`
       <li class = "post">
         <a class = "innerPost" href="#/postlist/${posts[i].title}/${i}">
-          <img class="randomImg" src="https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg">
+          <img class="randomImg" src="${posts[i].image}">
           <article>
             <strong>${posts[i].title}</strong>
             <p>${posts[i].content}</p>
