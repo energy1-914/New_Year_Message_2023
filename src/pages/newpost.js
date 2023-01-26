@@ -40,10 +40,10 @@ let template = `
 
 export class NewPostView {
   static render() {
-    let link = document.getElementsByTagName("link");
+    let link = document.querySelector("link");
     layout.innerHTML = template;
     document.title = "새 포스트 작성";
-    // link.setAttribute("href", "src/css/newPost.scss?ver0.1");
+    link.setAttribute("href", "src/css/newPost.scss?ver0.1");
     this.getRandomImg();
     this.post();
   }

@@ -54,23 +54,23 @@ export class PostContentView {
     this.content;
     this.template;
   }
-  static render(title, content, image, date, postId) {
-    // document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1"); 
-    this.url = POST_URL + `/${postId}`;
-    this.title = `${title}`;
-    this.content = `${content};`;
+  static render(post, date) {
+    document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1");
+    this.url = POST_URL + `/${post.postId}`;
+    this.title = `${post.title}`;
+    this.content = `${post.content};`;
     layout.innerHTML = template;
-    document.title = `${title}`;
+    document.title = `${post.title}`;
 
     postInformation.push(`
       <span id="clock">${date}</span>
-      <h2 id = "title">${title}</h2>
-      <p id = "text">${content}</p>
+      <h2 id = "title">${post.title}</h2>
+      <p id = "text">${post.content}</p>
     `);
     imageInformation.push(`
       <image
       class="postImg"
-      src="${image}"
+      src="${post.image}"
       />`);
 
     template = template.replace(
@@ -153,11 +153,11 @@ export class PostContentView {
 
           contentInformation.push(`
           <div class="comment">
-          <p>${content}</p>
-          <img 
-            src="https://cdn-icons-png.flaticon.com/512/2087/2087825.png" 
-            class="deleteComment"          
-            >
+            <p>${content}</p>
+            <img 
+              src="https://cdn-icons-png.flaticon.com/512/2087/2087825.png" 
+              class="deleteComment"          
+              >
           </div>
           `);
           line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
