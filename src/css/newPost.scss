@@ -96,3 +96,8 @@ button {
     background-position: 99% 50%;
   }
 }
+.newImg:disabled {
+  background-color: rgb(169, 169, 169); 
+  pointer-events: none;
+  color: black;
+}

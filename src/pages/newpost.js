@@ -14,7 +14,7 @@ let template = `
   </div>
   <main class="main">
     <form>
-      <button name="image" class="newImg" href="">랜덤이미지 추가하기</button>
+      <button name="image" class="newImg" type="button" href="">랜덤이미지 추가하기</button>
       <div class="post">
         <h3>Title</h3>
         <input
@@ -40,10 +40,21 @@ let template = `
 
 export class NewPostView {
   static render() {
+    let link = document.getElementsByTagName("link");
     layout.innerHTML = template;
     document.title = "새 포스트 작성";
-    document.querySelector("link").setAttribute("href", "src/css/newPost.scss?ver0.1");
+    // link.setAttribute("href", "src/css/newPost.scss?ver0.1");
+    this.getRandomImg();
     this.post();
+  }
+
+  static getRandomImg() {
+    const imgIcon = document.querySelector(".newImg");
+    const form = document.querySelector("form");
+    imgIcon.addEventListener("click", () => {
+      imgIcon.innerHTML = "이미지 추가완료"
+      imgIcon.disabled = true;
+    })
   }
 
   static post() {
@@ -52,9 +63,8 @@ export class NewPostView {
       e.preventDefault();
       let formData = new FormData(form);
       let body = {
-        image:
-          "https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg",
-      }; // image : 더미데이터
+        img: "https://source.unsplash.com/random",
+      }; 
       for (let [key, value] of [...formData]) {
         body[key] = value;
       }
