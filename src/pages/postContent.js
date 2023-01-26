@@ -25,7 +25,7 @@ let template = `
             id= "patchIcon"
             src="https://cdn-icons-png.flaticon.com/512/7175/7175385.png"
           />
-          <image
+          <img
             class="icon"
             id = "deleteIcon"
             src="https://cdn-icons-png.flaticon.com/512/7945/7945112.png"
@@ -55,7 +55,7 @@ export class PostContentView {
     this.template;
   }
   static render(title, content, image, date, postId) {
-    document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1"); 
+    // document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1"); 
     this.url = POST_URL + `/${postId}`;
     this.title = `${title}`;
     this.content = `${content};`;
@@ -154,7 +154,7 @@ export class PostContentView {
           contentInformation.push(`
           <div class="comment">
           <p>${content}</p>
-          <image 
+          <img 
             src="https://cdn-icons-png.flaticon.com/512/2087/2087825.png" 
             class="deleteComment"          
             >
@@ -177,11 +177,3 @@ export class PostContentView {
     });
   }
 }
-/* <form>
-          <div class="commentForm">
-            <input class="commentInput" type="text" />
-            <button class="commentBtn" type="submit">
-              <image class="buttonIcon" src="https://cdn-icons-png.flaticon.com/512/9446/9446874.png">
-            </button>
-          </div>
-        </form>    */

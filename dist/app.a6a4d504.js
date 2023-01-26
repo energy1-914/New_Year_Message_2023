@@ -357,7 +357,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var layout = document.getElementById("layout");
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main class=\"main\">\n    <form>\n      <button name=\"image\" class=\"newImg\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n      <div class=\"post\">\n        <h3>Title</h3>\n        <input\n          name=\"title\"\n          class=\"inputTitle\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        />\n      </div>\n      <div class=\"post\">\n        <h3>Content</h3>\n        <textarea\n          name= \"content\"\n          class=\"content\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        ></textarea>\n      </div>\n      <button class=\"upload\" type=\"submit\">\uAC8C\uC2DC\uD558\uAE30</button>\n    </form>  \n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main class=\"main\">\n    <form>\n      <button name=\"image\" class=\"newImg\" type=\"button\" href=\"\">\uB79C\uB364\uC774\uBBF8\uC9C0 \uCD94\uAC00\uD558\uAE30</button>\n      <div class=\"post\">\n        <h3>Title</h3>\n        <input\n          name=\"title\"\n          class=\"inputTitle\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uC81C\uBAA9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        />\n      </div>\n      <div class=\"post\">\n        <h3>Content</h3>\n        <textarea\n          name= \"content\"\n          class=\"content\"\n          type=\"text\"\n          placeholder=\"\uAE00 \uB0B4\uC6A9\uC744 \uC791\uC131\uD574\uC8FC\uC138\uC694.\"\n        ></textarea>\n      </div>\n      <button class=\"upload\" type=\"submit\">\uAC8C\uC2DC\uD558\uAE30</button>\n    </form>  \n  </main>\n";
 var NewPostView = /*#__PURE__*/function () {
   function NewPostView() {
     _classCallCheck(this, NewPostView);
@@ -365,10 +365,22 @@ var NewPostView = /*#__PURE__*/function () {
   _createClass(NewPostView, null, [{
     key: "render",
     value: function render() {
+      var link = document.getElementsByTagName("link");
       layout.innerHTML = template;
       document.title = "새 포스트 작성";
-      document.querySelector("link").setAttribute("href", "src/css/newPost.scss?ver0.1");
+      // link.setAttribute("href", "src/css/newPost.scss?ver0.1");
+      this.getRandomImg();
       this.post();
+    }
+  }, {
+    key: "getRandomImg",
+    value: function getRandomImg() {
+      var imgIcon = document.querySelector(".newImg");
+      var form = document.querySelector("form");
+      imgIcon.addEventListener("click", function () {
+        imgIcon.innerHTML = "이미지 추가완료";
+        imgIcon.disabled = true;
+      });
     }
   }, {
     key: "post",
@@ -378,8 +390,8 @@ var NewPostView = /*#__PURE__*/function () {
         e.preventDefault();
         var formData = new FormData(form);
         var body = {
-          image: "https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg"
-        }; // image : 더미데이터
+          img: "https://source.unsplash.com/random"
+        };
         for (var _i = 0, _arr = _toConsumableArray(formData); _i < _arr.length; _i++) {
           var _arr$_i = _slicedToArray(_arr[_i], 2),
             key = _arr$_i[0],
@@ -429,7 +441,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var layout = document.getElementById("layout");
 var imageInformation = [];
 var postInformation = [];
-var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <image\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n      <section>\n      <div id=\"line\"/>\n        <form>\n          <div class=\"commentForm\">\n            <input name=\"content\" class=\"commentInput\" type=\"text\" />\n            <button type=\"submit\" class=\"commentBtn\" > \n              <image class=\"buttonIcon\" src=\"https://cdn-icons-png.flaticon.com/512/9446/9446874.png\">\n            </button>\n          </div>  \n        </form>   \n      </section>\n    </article>\n  </main>\n";
+var template = "\n  <div class=\"header\">\n    <a href=\"#\">\n      <img\n        class=\"arrowIcon\"\n        src=\"https://cdn-icons-png.flaticon.com/512/271/271220.png\"\n      />\n    </a>\n    <h2>HPNY 2023</h2>\n  </div>\n  <main>\n    <article>\n      {{__post_image__}}\n      <div class=\"contentGroup\">\n        {{__post_information__}}\n        <div class=\"icons\">\n          <image\n            class=\"icon\"\n            id= \"patchIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7175/7175385.png\"\n          />\n          <img\n            class=\"icon\"\n            id = \"deleteIcon\"\n            src=\"https://cdn-icons-png.flaticon.com/512/7945/7945112.png\"\n          />\n        </div>\n      </div>\n      <section>\n      <div id=\"line\"/>\n        <form>\n          <div class=\"commentForm\">\n            <input name=\"content\" class=\"commentInput\" type=\"text\" />\n            <button type=\"submit\" class=\"commentBtn\" > \n              <image class=\"buttonIcon\" src=\"https://cdn-icons-png.flaticon.com/512/9446/9446874.png\">\n            </button>\n          </div>  \n        </form>   \n      </section>\n    </article>\n  </main>\n";
 var PostContentView = /*#__PURE__*/function () {
   function PostContentView() {
     _classCallCheck(this, PostContentView);
@@ -442,7 +454,7 @@ var PostContentView = /*#__PURE__*/function () {
     key: "render",
     value: function render(title, content, image, date, postId) {
       var _this = this;
-      document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1");
+      // document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1"); 
       this.url = _config.POST_URL + "/".concat(postId);
       this.title = "".concat(title);
       this.content = "".concat(content, ";");
@@ -512,7 +524,7 @@ var PostContentView = /*#__PURE__*/function () {
           var contentInformation = [];
           var commentId = objData.data.commentId;
           var commentUrl = _config.COMMENT_URL + "/" + commentId;
-          contentInformation.push("\n          <div class=\"comment\">\n          <p>".concat(content, "</p>\n          <image \n            src=\"https://cdn-icons-png.flaticon.com/512/2087/2087825.png\" \n            class=\"deleteComment\"          \n            >\n          </div>\n          "));
+          contentInformation.push("\n          <div class=\"comment\">\n          <p>".concat(content, "</p>\n          <img \n            src=\"https://cdn-icons-png.flaticon.com/512/2087/2087825.png\" \n            class=\"deleteComment\"          \n            >\n          </div>\n          "));
           line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
           _this4.template = layout.innerHTML;
           _this4.deleteComment(commentUrl);
@@ -546,14 +558,6 @@ var PostContentView = /*#__PURE__*/function () {
   }]);
   return PostContentView;
 }();
-/* <form>
-          <div class="commentForm">
-            <input class="commentInput" type="text" />
-            <button class="commentBtn" type="submit">
-              <image class="buttonIcon" src="https://cdn-icons-png.flaticon.com/512/9446/9446874.png">
-            </button>
-          </div>
-        </form>    */
 exports.PostContentView = PostContentView;
 },{"../../config":"config.js","../cores/api":"src/cores/api.js"}],"src/cores/router.js":[function(require,module,exports) {
 "use strict";
@@ -639,7 +643,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59264" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63191" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
