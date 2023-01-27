@@ -141,7 +141,7 @@ var MainView = /*#__PURE__*/function () {
     key: "render",
     value: function render(length, posts) {
       for (var i = 0; i < length; i++) {
-        postList.push("\n      <li class = \"post\">\n        <a class = \"innerPost\" href=\"#/postlist/".concat(posts[i].title, "/").concat(i, "\">\n          <img class=\"randomImg\" src=\"https://blog.kakaocdn.net/dn/Of181/btq4ID0fTeT/wftn2VI2aeYhGzarOLHn50/img.jpg\">\n          <article>\n            <strong>").concat(posts[i].title, "</strong>\n            <p>").concat(posts[i].content, "</p>\n          </article>\n        </a>\n      </li>\n      "));
+        postList.push("\n      <li class = \"post\">\n        <a class = \"innerPost\" href=\"#/postlist/".concat(posts[i].title, "/").concat(i, "\">\n          <img class=\"randomImg\" src=\"").concat(posts[i].image, "\">\n          <article>\n            <strong>").concat(posts[i].title, "</strong>\n            <p>").concat(posts[i].content, "</p>\n          </article>\n        </a>\n      </li>\n      "));
       }
       template = template.replace("{{__post_list__}}", postList.join(""));
       layout.innerHTML = template;
@@ -365,10 +365,10 @@ var NewPostView = /*#__PURE__*/function () {
   _createClass(NewPostView, null, [{
     key: "render",
     value: function render() {
-      var link = document.getElementsByTagName("link");
+      var link = document.querySelector("link");
       layout.innerHTML = template;
       document.title = "새 포스트 작성";
-      // link.setAttribute("href", "src/css/newPost.scss?ver0.1");
+      link.setAttribute("href", "src/css/newPost.scss?ver0.1");
       this.getRandomImg();
       this.post();
     }
@@ -376,7 +376,6 @@ var NewPostView = /*#__PURE__*/function () {
     key: "getRandomImg",
     value: function getRandomImg() {
       var imgIcon = document.querySelector(".newImg");
-      var form = document.querySelector("form");
       imgIcon.addEventListener("click", function () {
         imgIcon.innerHTML = "이미지 추가완료";
         imgIcon.disabled = true;
@@ -390,7 +389,7 @@ var NewPostView = /*#__PURE__*/function () {
         e.preventDefault();
         var formData = new FormData(form);
         var body = {
-          img: "https://source.unsplash.com/random"
+          image: "https://source.unsplash.com/random"
         };
         for (var _i = 0, _arr = _toConsumableArray(formData); _i < _arr.length; _i++) {
           var _arr$_i = _slicedToArray(_arr[_i], 2),
@@ -401,8 +400,8 @@ var NewPostView = /*#__PURE__*/function () {
         _api.Api.post(_config.POST_URL, body).then(function () {
           location.hash = "";
           location.reload(true);
-        }).catch(function () {
-          return alert("제목과 내용 모두 작성하시기 바랍니다.");
+        }).catch(function (err) {
+          return console.log(err);
         });
       };
     }
@@ -452,16 +451,16 @@ var PostContentView = /*#__PURE__*/function () {
   }
   _createClass(PostContentView, null, [{
     key: "render",
-    value: function render(title, content, image, date, postId) {
+    value: function render(post, date) {
       var _this = this;
-      // document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1"); 
-      this.url = _config.POST_URL + "/".concat(postId);
-      this.title = "".concat(title);
-      this.content = "".concat(content, ";");
+      document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1");
+      this.url = _config.POST_URL + "/".concat(post.postId);
+      this.title = "".concat(post.title);
+      this.content = "".concat(post.content, ";");
       layout.innerHTML = template;
-      document.title = "".concat(title);
-      postInformation.push("\n      <span id=\"clock\">".concat(date, "</span>\n      <h2 id = \"title\">").concat(title, "</h2>\n      <p id = \"text\">").concat(content, "</p>\n    "));
-      imageInformation.push("\n      <image\n      class=\"postImg\"\n      src=\"".concat(image, "\"\n      />"));
+      document.title = "".concat(post.title);
+      postInformation.push("\n      <span id=\"clock\">".concat(date, "</span>\n      <h2 id = \"title\">").concat(post.title, "</h2>\n      <p id = \"text\">").concat(post.content, "</p>\n    "));
+      imageInformation.push("\n      <image\n      class=\"postImg\"\n      src=\"".concat(post.image, "\"\n      />"));
       template = template.replace("{{__post_information__}}", postInformation.join(""));
       template = template.replace("{{__post_image__}}", imageInformation.join(""));
       layout.innerHTML = template;
@@ -496,7 +495,6 @@ var PostContentView = /*#__PURE__*/function () {
         _this3.title = document.querySelector("input").value;
         _this3.content = document.querySelector("textarea").value;
         _api.Api.patch(_this3.url, _this3.title, _this3.content).then(function () {
-          _this3.render();
           location.reload(true);
         });
       });
@@ -524,7 +522,7 @@ var PostContentView = /*#__PURE__*/function () {
           var contentInformation = [];
           var commentId = objData.data.commentId;
           var commentUrl = _config.COMMENT_URL + "/" + commentId;
-          contentInformation.push("\n          <div class=\"comment\">\n          <p>".concat(content, "</p>\n          <img \n            src=\"https://cdn-icons-png.flaticon.com/512/2087/2087825.png\" \n            class=\"deleteComment\"          \n            >\n          </div>\n          "));
+          contentInformation.push("\n          <div class=\"comment\">\n            <p>".concat(content, "</p>\n            <img \n              src=\"https://cdn-icons-png.flaticon.com/512/2087/2087825.png\" \n              class=\"deleteComment\"          \n              >\n          </div>\n          "));
           line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
           _this4.template = layout.innerHTML;
           _this4.deleteComment(commentUrl);
@@ -536,7 +534,7 @@ var PostContentView = /*#__PURE__*/function () {
     }
   }, {
     key: "deleteComment",
-    value: function deleteComment(u) {
+    value: function deleteComment(url) {
       var deleteComment = document.querySelector(".deleteComment");
       deleteComment.addEventListener("click", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -544,7 +542,7 @@ var PostContentView = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _api.Api.delete(u);
+                return _api.Api.delete(url);
               case 2:
                 deleteComment.parentNode.remove();
               case 3:
@@ -597,12 +595,8 @@ var Router = /*#__PURE__*/function () {
         var i = routePath.split("/")[3];
         _api.Api.get().then(function (data) {
           var post = data.data.posts[i];
-          var title = post.title;
-          var content = post.content;
-          var image = post.image;
           var date = post.updatedAt.slice(0, 10).replaceAll("-", ".");
-          var postId = post.postId;
-          _postContent.PostContentView.render(title, content, image, date, postId);
+          _postContent.PostContentView.render(post, date);
         });
       } else if (routePath.includes("#/newpost")) {
         _newPost.NewPostView.render();
@@ -643,7 +637,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63191" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62483" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

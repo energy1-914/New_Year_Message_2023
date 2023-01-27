@@ -113,7 +113,6 @@ export class PostContentView {
             ></textarea>
           </div>
           <button class="upload" href="">수정하기</button>`;
-
     let contentGroup = document.querySelector(".contentGroup");
 
     while (contentGroup.firstChild) {
@@ -126,7 +125,6 @@ export class PostContentView {
       this.content = document.querySelector("textarea").value;
 
       Api.patch(this.url, this.title, this.content).then(() => {
-        this.render();
         location.reload(true);
       });
     });
@@ -169,10 +167,10 @@ export class PostContentView {
     };
   }
 
-  static deleteComment(u) {
+  static deleteComment(url) {
     const deleteComment = document.querySelector(".deleteComment");
     deleteComment.addEventListener("click", async () => {
-      await Api.delete(u);
+      await Api.delete(url);
       deleteComment.parentNode.remove();
     });
   }
