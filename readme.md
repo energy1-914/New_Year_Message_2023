@@ -12,8 +12,7 @@
 
 ---
 <br/>
-<img width="100%" src="![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/108319907/215971209-86996b35-7eaf-4dfe-910a-9ef4e0c7e8fb.gif)
-"/>
+<img width="100%" src="https://user-images.githubusercontent.com/108319907/215971209-86996b35-7eaf-4dfe-910a-9ef4e0c7e8fb.gif"/>
 
 
 ### Vanilla Javascript로 신년메세지 주고받는 페이지를 제작했습니다.
