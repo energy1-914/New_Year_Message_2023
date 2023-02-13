@@ -53,6 +53,7 @@ export class PostContentView {
     this.title;
     this.content;
     this.template;
+    this.commentUrl
   }
   static render(post, date) {
     document.querySelector("link").setAttribute("href", "src/css/postContent.scss?ver0.1");
@@ -89,6 +90,7 @@ export class PostContentView {
     });
     this.delete();
     this.setComment();
+    this.deleteComment(this.commentUrl);
   }
 
   static delete() {
@@ -133,6 +135,7 @@ export class PostContentView {
   static setComment() {
     let url = this.url.replace("post", "comment");
     const form = document.querySelector("form");
+    const line = document.querySelector("#line");
     form.onsubmit = e => {
       e.preventDefault();
       let formData = new FormData(form);
@@ -147,24 +150,46 @@ export class PostContentView {
           let line = document.querySelector("#line");
           let contentInformation = [];
           let commentId = objData.data.commentId;
-          let commentUrl = COMMENT_URL + "/" + commentId;
-
+          this.commentUrl = COMMENT_URL + "/" + commentId;
+          let commentInput = document.querySelector(".commentInput");
+          window.localStorage.setItem(Date.now(), content);
           contentInformation.push(`
-          <div class="comment">
-            <p>${content}</p>
-            <img 
-              src="https://cdn-icons-png.flaticon.com/512/2087/2087825.png" 
-              class="deleteComment"          
-              >
-          </div>
+            <div class="comment">
+              <p class="commentPtag">${content}</p>
+              <img 
+                src="https://cdn-icons-png.flaticon.com/512/2087/2087825.png" 
+                class="deleteComment"          
+                >
+            </div>
           `);
           line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
           this.template = layout.innerHTML;
-          this.deleteComment(commentUrl);
+          commentInput.value = "";
           // location.reload(true);
         })
         .catch(error => console.log("err: ", error));
     };
+    if (line.childElementCount === 1 && localStorage.length > 0) {
+      let length = localStorage.length;
+
+      for (let i = 0; i < length; i++) {
+        let contentInformation = [];
+        let key = localStorage.key(i);
+        let comment = localStorage.getItem(key);
+
+        contentInformation.push(`
+          <div class="comment">
+            <p class="commentPtag">${comment}</p>
+            <img 
+            src="https://cdn-icons-png.flaticon.com/512/2087/2087825.png" 
+            class="deleteComment"          
+            >
+          </div>
+        `);
+        line.insertAdjacentHTML("afterbegin", contentInformation.join(""));
+        this.template = layout.innerHTML;
+      }
+    }
   }
 
   static deleteComment(url) {
