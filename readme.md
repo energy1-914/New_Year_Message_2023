@@ -21,7 +21,7 @@
 
 
 
-### 백엔드에서 전해준 url을 통해 fetch api를 사용해 CRUD를 구현했습니다.
+### Fetch API를 사용하여 RESTful API로 CRUD 기능을 구현했습니다
 ### 또한, 포스트 작성 시 랜덤 이미지는 unsplash에서 제공하는 api를 사용했습니다.
 <br/>
 <br/>
