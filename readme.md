@@ -13,7 +13,7 @@
 ---
 <br/>
 
-### Vanilla Javascript로 신년메세지 주고받는 페이지를 제작했습니다.
+### VanillaJS로 신년메시지 주고받는 사이트를 SPA로 만들었습니다.
 ### 총 3 페이지로 포스트 작성 페이지, 포스트 목록 페이지, 포스트 내용 페이지로 이루어져 있습니다.
 <img width="100%" src="https://user-images.githubusercontent.com/108319907/215972584-752a84a7-32fe-4d83-bf95-27e37cacb7a6.gif"/>
 <img width="100%" src="https://user-images.githubusercontent.com/108319907/215971209-86996b35-7eaf-4dfe-910a-9ef4e0c7e8fb.gif"/>
